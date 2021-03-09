@@ -59,7 +59,7 @@ function updateChart(weatherDataObj){
     let wd = weatherDataObj;
     console.log(wd)
 
-    for (let i = 0; i < wd.daily.length; i++) {
+    for (let i = 0; i < wd.daily.length && i < 6; i++) {
         let element = wd.daily[i];
         let dayTemp;
         if(i === 0){
@@ -82,6 +82,12 @@ function updateChart(weatherDataObj){
         
         //console.log(dayDate);
         console.log(dayDate, dayTemp, dayMin, dayMax, dayWeather, dayWeatherDesc, dayPrecip)
+
+        
+
+
+
+
 
         
     }
