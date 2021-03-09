@@ -11,7 +11,11 @@ const locList = $(".loc-list");
 var savedList = []
 
 try {
-    
+    if(localStorage.getItem("weatherCityList") !== null){
+        savedList = JSON.parse(localStorage.getItem("weatherCityList"));
+    }else{
+        localStorage.setItem("weatherCityList", JSON.stringify(savedList));
+    }
 } catch (e) {console.log(e)}
 
 
@@ -27,7 +31,7 @@ async function getWeatherDataFromName(string){
             //console.log(coordAPIData);
             const coordData = coordAPIData.results[0].geometry;
             //console.log(coordData);
-
+            console.log(getWeatherAPI[0] + coordData.lat + getWeatherAPI[1] + coordData.lng + getWeatherAPI[2])
             const weatherAPIResponse = await fetch(getWeatherAPI[0] + coordData.lat + getWeatherAPI[1] + coordData.lng + getWeatherAPI[2]);
             const weatherAPIData = await weatherAPIResponse.json();
             console.log(weatherAPIData);
@@ -52,7 +56,46 @@ async function getNameFromWeatherData(lat, lng){
 }
 
 function updateChart(weatherDataObj){
+    let wd = weatherDataObj;
+    console.log(wd)
 
+    for (let i = 0; i < wd.daily.length; i++) {
+        let element = wd.daily[i];
+        let dayTemp;
+        if(i === 0){
+            
+            dayTemp = wd.current.temp;
+        }else{
+            dayTemp = element.temp.day;
+        }
+
+        let dayDate = moment.unix(element.dt).format("M/D/YY");
+        let dayMin = element.temp.min;
+        let dayMax = element.temp.max;
+        let dayWeather = element.weather[0].main;
+        let dayWeatherDesc = element.weather[0].description;
+        let dayPrecip = 0;
+        try{
+        if(element.rain){dayPrecip = element.rain;}
+        
+        }catch(e){console.log(e);}
+        
+        //console.log(dayDate);
+        console.log(dayDate, dayTemp, dayMin, dayMax, dayWeather, dayWeatherDesc, dayPrecip)
+
+        
+    }
+
+}
+
+function renderList() {
+    locList.html("");
+    for (let j = 0; j < savedList.length; j++) {
+        const element = savedList[j];
+        let newLi = $("<li>").text(element);
+        locList.append(newLi);
+        
+    }
 }
 
 
@@ -61,6 +104,7 @@ submitButton.on("click", async function(e){
     let wd = await getWeatherDataFromName(locSearchBox.val());
     let nameData = await getNameFromWeatherData(wd.lat, wd.lon);
     console.log(nameData);
+    updateChart(wd)
     let nameDataComponents = nameData.results[0].components;
     let nameFormatted;
     if(nameDataComponents.country_code === 'us'){
@@ -73,15 +117,18 @@ submitButton.on("click", async function(e){
     if(!savedList.includes(nameFormatted)){
         savedList.unshift(nameFormatted);
         let newLi = $("<li>").text(nameFormatted);
-        locList.append(newLi);
+        locList.prepend(newLi);
+        localStorage.setItem("weatherCityList", JSON.stringify(savedList));
     }
     locSearchBox.val("");
 })
 
-locList.on("click", function(e){
+locList.on("click", async function(e){
     console.log(e.target.tagName)
     if(e.target.tagName === "LI"){
-        let wd = getWeatherDataFromName($(e.target).text());
-        
+        let wd = await getWeatherDataFromName($(e.target).text());
+        updateChart(wd);
     }
 })
+
+renderList();

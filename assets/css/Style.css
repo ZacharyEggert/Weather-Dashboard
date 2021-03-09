@@ -18,7 +18,98 @@
     list-style: none;
 }
 
-.title-box {
+body {
+    height: 80vh;
     width: 100%;
+}
+
+header {
     
+    width: 100%;
+    height: 20vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem 0;
+}
+
+header.rainy{
+    background-color: var(--primaryRainy);
+}
+
+.aside.rainy{
+    background-color: var(--secondaryRainy);
+}
+
+.title-box {
+    /* border: grey solid 1px; */
+    border-radius: 1.5rem;
+    background-color: white;
+    padding: 1rem;
+    text-align: end;
+}
+
+.big-title {
+    font-size: 3rem;
+}
+
+.sub-title {
+    font-size: 1rem;
+    font-family: "Comic Sans MS", "Comic Sans", cursive;
+}
+
+main {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    height: 100%;
+    overflow: hidden;
+}
+
+.aside {
+    flex:1 1 25vw;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+    padding: 2rem 1rem;
+}
+
+.content {
+    flex: 1 1 75vw;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap
+}
+
+.input {
+    margin: 1rem 0 2rem 0;
+    width: 100%;
+    display: flex;
+}
+
+.input .search-box {
+    height: 2rem;
+    width: 80%;
+    flex: 1 1 80%;
+    border: 1px solid gray;
+    border-radius: .25rem;
+    background-color: white;
+}
+
+.input .submit-button {
+    height: 2rem;
+    width: 2rem;
+    font-size: 1rem;
+    flex: 1 1 20%;
+    margin-left: .5rem;
+    border: 1px solid gray;
+    border-radius: .25rem;
+    background-color: white;
+}
+
+.loc-list li {
+    margin: .5rem 0;
+    font-size: 1.5rem;
 }
