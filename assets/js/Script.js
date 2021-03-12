@@ -85,17 +85,62 @@ function updateChart(weatherDataObj){
         $(".date").eq(i).text(dayDate);
         $(".weather-logo").eq(i).attr("src", `http://openweathermap.org/img/wn/${element.weather[0].icon}@2x.png`).attr("alt", dayWeatherDesc);
 
-        if(i === 0){$(".weather-logo").eq(i).attr("src", `http://openweathermap.org/img/wn/${element.weather[0].icon}@4x.png`).attr("alt", dayWeatherDesc);}
+        if(i === 0){$(".weather-logo").eq(i).attr("src", `http://openweathermap.org/img/wn/${wd.current.weather[0].icon}@4x.png`).attr("alt", dayWeatherDesc);}
 
         $(".temperature").eq(i).html(Math.round(dayTemp) + "&deg;F");
-        $(".temp-high").eq(i).text(Math.round(dayMax));
-        $(".temp-low").eq(i).text(Math.round(dayMin));
+        $(".temp-high").eq(i).html(Math.round(dayMax) + "&deg;");
+        $(".temp-low").eq(i).html(Math.round(dayMin) + "&deg;");
         $(".precipitation").eq(i).text(dayPrecip + '" of rain');
         if(dayPrecip<.25){$(".precipitation").eq(i).attr("style", "display: none;")}else{$(".precipitation").eq(i).attr("style", "display: inline;")}
 
+    }
 
-
-
+    switch(wd.current.weather[0].icon){
+        case "01d": 
+            $("body").attr("class", "sunny");
+        break;
+        case "02d": 
+            $("body").attr("class", "sunny");
+        break; 
+        case "01n": 
+            $("body").attr("class", "sunny");
+        break; 
+        case "02n":
+            $("body").attr("class", "sunny");
+        break;
+        case "03d":
+            $("body").attr("class", "cloudy");
+        break;
+        case "04d":
+            $("body").attr("class", "cloudy");
+        break;
+        case "03n":
+            $("body").attr("class", "cloudy");
+        break; 
+        case "04n":
+            $("body").attr("class", "cloudy");
+        break;
+        case "09d":
+            $("body").attr("class", "rainy");
+        break;
+        case "09n":
+            $("body").attr("class", "rainy");
+        break;
+        case "10d":
+            $("body").attr("class", "rainy");
+        break;
+        case "10n":
+            $("body").attr("class", "rainy");
+        break;
+        case "11d":
+            $("body").attr("class", "rainy");
+        break;
+        case "11n":
+            $("body").attr("class", "rainy");
+        break;
+        default:
+            $("body").attr("class", "cloudy");
+        break;
     }
 }
 
@@ -110,11 +155,13 @@ function renderList() {
 
 
 submitButton.on("click", async function(e){
-    console.log(locSearchBox.val())
+    //console.log(locSearchBox.val());
+    $(".block-load").attr("style", "display: flex;");
     let wd = await getWeatherDataFromName(locSearchBox.val());
     let nameData = await getNameFromWeatherData(wd.lat, wd.lon);
     //console.log(nameData);
     updateChart(wd)
+    $(".block-load").attr("style", "display: none;");
     let nameDataComponents = nameData.results[0].components;
     let nameFormatted;
     if(nameDataComponents.country_code === 'us'){
@@ -145,6 +192,7 @@ renderList();
 async function renderInit() {
     let wd = await getWeatherDataFromName("Seattle");
     updateChart(wd)
+    $(".block-load").attr("style", "display: none;");
 }
 
 renderInit()
