@@ -90,8 +90,8 @@ function updateChart(weatherDataObj){
         $(".temperature").eq(i).html(Math.round(dayTemp) + "&deg;F");
         $(".temp-high").eq(i).html(Math.round(dayMax) + "&deg;");
         $(".temp-low").eq(i).html(Math.round(dayMin) + "&deg;");
-        $(".precipitation").eq(i).text(dayPrecip + '" of rain');
-        if(dayPrecip<.25){$(".precipitation").eq(i).attr("style", "display: none;")}else{$(".precipitation").eq(i).attr("style", "display: inline;")}
+        $(".precipitation").eq(i).text("Precipitation: " + Math.round(dayPrecip*10)/10 + '"');
+        if(dayPrecip<.15){$(".precipitation").eq(i).attr("style", "display: none;")}else{$(".precipitation").eq(i).attr("style", "display: inline;")}
 
     }
 
@@ -157,11 +157,13 @@ function renderList() {
 submitButton.on("click", async function(e){
     //console.log(locSearchBox.val());
     $(".block-load").attr("style", "display: flex;");
+    $(".content").attr("style", "overflow: hidden;");
     let wd = await getWeatherDataFromName(locSearchBox.val());
     let nameData = await getNameFromWeatherData(wd.lat, wd.lon);
     //console.log(nameData);
     updateChart(wd)
     $(".block-load").attr("style", "display: none;");
+    $(".content").attr("style", "overflow: visible;");
     let nameDataComponents = nameData.results[0].components;
     let nameFormatted;
     if(nameDataComponents.country_code === 'us'){
@@ -193,6 +195,8 @@ async function renderInit() {
     let wd = await getWeatherDataFromName("Seattle");
     updateChart(wd)
     $(".block-load").attr("style", "display: none;");
+    $(".content").attr("style", "overflow: visible;");
+
 }
 
 renderInit()
