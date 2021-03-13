@@ -115,10 +115,10 @@ async function updateChart(weatherDataObj){
         //console.log(thisCard);
 
         $(".date").eq(i).text(dayDate);
-        $(".weather-logo").eq(i).attr("src", `http://openweathermap.org/img/wn/${element.weather[0].icon}@2x.png`).attr("alt", dayWeatherDesc); //FETCH ICON FROM API
+        $(".weather-logo").eq(i).attr("src", `https://openweathermap.org/img/wn/${element.weather[0].icon}@2x.png`).attr("alt", dayWeatherDesc); //FETCH ICON FROM API
 
         if(i === 0){
-            $(".weather-logo").eq(i).attr("src", `http://openweathermap.org/img/wn/${wd.current.weather[0].icon}@4x.png`).attr("alt", dayWeatherDesc); //FETCH ICON FROM API HIRES
+            $(".weather-logo").eq(i).attr("src", `https://openweathermap.org/img/wn/${wd.current.weather[0].icon}@4x.png`).attr("alt", dayWeatherDesc); //FETCH ICON FROM API HIRES
             $(".date").eq(i).html((nameData.results[0].components.city ?? nameData.results[0].components.country) + "<br>" + dayDate);
             $(".wind").text(wd.current.wind_speed);
 
