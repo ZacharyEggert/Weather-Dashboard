@@ -87,7 +87,7 @@ async function updateChart(weatherDataObj){
     
 
     let wd = weatherDataObj;
-    console.log(wd);
+    //console.log(wd);
     let nameData = await getNameFromWeatherData(wd.lat, wd.lon);            //Get City Name From GEOLOC
 
     for (let i = 0; i < wd.daily.length && i < 6; i++) {                    //Put data into HTML objects
