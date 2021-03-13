@@ -39,6 +39,22 @@ header {
     padding: 1rem 0;
 }
 
+#uv-red{
+    background-color: red;
+    border-radius: .25rem;
+}
+
+#uv-yellow {
+    background-color: yellow;
+    border-radius: .25rem;
+}
+
+#uv-green {
+    background-color: greenyellow;
+    border-radius: .25rem;
+}
+
+
 .rainy header {
     background-color: var(--primaryRainy);
 }
@@ -99,6 +115,7 @@ main {
     flex-direction: row;
     flex-wrap: nowrap;
     height: 100%;
+    overflow: hidden;
 }
 
 
@@ -116,11 +133,13 @@ main {
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
-    overflow: hidden;
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 .content .block-load {
     height: 100%;
+    width: 100%;
     flex: 0 0 100%;
     display: flex;
     flex-direction: row;
@@ -180,6 +199,7 @@ main {
 .current-day {
     height: 70%;
     width: 100%;
+    flex: 1 1 95%;
     padding: .5rem;
     display: flex;
     flex-direction: row;
@@ -239,13 +259,14 @@ main {
 }
 
 .h-l, .h-l span{
-    font-size: 2rem;
+    font-size: 1.5rem;
 }
 
 
 .five-day {
     display: flex;
     width: 100%;
+    flex: 1 1 95%;
     padding: 0 .25rem;
     flex-direction: row;
     align-items: center;
@@ -306,8 +327,38 @@ main {
     margin: .5rem 1.5rem;
 }
 
+.content .block-load {
+    width: 100vw;
+    min-height: 80vh;
+    flex: 0 0 100vh;
+}
+
+.five-day .card{
+    height: 100%;
+}
 
 
+}
+
+@media screen and (max-width: 720px) {
+
+.five-day {
+    flex-wrap: wrap;
+}
+
+.five-day .card{
+    flex: 1 1 80%;
+    position: relative;
+    display: block;
+    margin-bottom: .5rem;
+}
+
+.five-day .card .weather-logo {
+    position: absolute;
+    right: 3rem;
+    top: 0;
+    
+}
 
 
 
